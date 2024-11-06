@@ -1,3 +1,4 @@
+from flask_cors import CORS, cross_origin
 from flask import Flask, request, jsonify
 import os
 from werkzeug.utils import secure_filename
@@ -7,6 +8,7 @@ PDFProcessor = Search.PDFProcessor
 
 processor = PDFProcessor()
 app = Flask(__name__)
+CORS(app)
 
 # Configure the upload folder
 UPLOAD_FOLDER = 'uploads'
@@ -43,6 +45,7 @@ def upload_file():
 def scrape():
     data = request.json
     url = data.get("url")
+    print(url)
 
     result = processor.process_web_content(url)
 
@@ -54,7 +57,7 @@ def scrape():
 def search():
     data = request.json
     query = data.get("query")
-    k = data.get("k")
+    k = data.get("top-k")
 
     result = processor.get_similar_articles(query, int(k))
 
