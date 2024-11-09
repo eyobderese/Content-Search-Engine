@@ -131,6 +131,20 @@ class PDFProcessor:
         self.processed_docs = clean_docs
         self.titles = clean_titles
 
+    def process_text1(self, docs, titles):
+        clean_docs = []
+        clean_titles = []
+        for text in docs:
+            # capitalize
+            text = text.lower()
+            clean_docs.append(text)
+        for title in titles:
+            title = title.lower()
+            clean_titles.append(title)
+
+        self.processed_docs = clean_docs
+        self.titles = clean_titles
+
     def vectorize_docs(self):
         """Converts documents to TF-IDF vectors and saves as a DataFrame."""
         self.vectorizer = TfidfVectorizer(analyzer='word',
